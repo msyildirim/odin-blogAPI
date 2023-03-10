@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammet Blog</title>
+</head>
+<body>
+    <h1>Blog posts</h1>
+    <div id="content"></div>
+</body>
+<script>
+    const contentFrame = document.querySelector('#content');
+    fetch('/api/posts')
+      .then(function(response, err) {
+        return response.json()
+      })
+      .then((data) => {
+        console.log(data);
+        data.forEach(element => {
+            let postHeader = document.createElement('h2');
+            let postContent = document.createElement('p')
+            postHeader.innerHTML = element.title;
+            postContent.innerHTML = element.content;
+            contentFrame.appendChild(postHeader);
+            contentFrame.appendChild(postContent);
+        });
+      })
+</script>
+</html>
